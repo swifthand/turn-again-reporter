@@ -1,5 +1,5 @@
-require  "minitest/reporters"
-require File.join(File.dirname(__FILE__), "minitest/reporters/turn_again_reporter")
+require "minitest/reporters"
+require "minitest/reporters/turn_again_reporter"
 
 module Minitest
   module Reporters

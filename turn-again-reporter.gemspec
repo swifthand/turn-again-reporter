@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'version'
 
 Gem::Specification.new do |spec|
-  spec.name           = "turn_again_reporter"
+  spec.name           = "turn-again-reporter"
   spec.version        = Minitest::Reporters::TurnAgainReporter::VERSION
   spec.platform       = Gem::Platform::RUBY
   spec.authors        = ["Paul Kwiatkowski"]
