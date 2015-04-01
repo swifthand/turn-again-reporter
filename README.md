@@ -1,6 +1,6 @@
 # A Turn-like Minitest Reporter (Again)
 
-One of my favorite aspects of the now-abandoned [turn gem](https://github.com/turn-project/turn) was how the status banners for each test (i.e. PASS, FAIL, ERROR, SKIP) lined up nicely on the right side, providing a comfy, at-a-glance view.
+One of my favorite aspects of the now-abandoned [turn gem](https://github.com/turn-project/turn) was how the status banners for each test (i.e. PASS, FAIL, ERROR, SKIP) lined up nicely on the left side, providing a comfy, at-a-glance view.
 
 These days I'm using the [minitest-reporters](https://github.com/kern/minitest-reporters) gem everywhere, but I've felt a little picky about the SpecReporter's claims to be "Turn-like". In addition to the right-aligned status banners being a little unfamiliar, since they come after the test name, it has the undesirable effect of limiting the length of my test names.
 
