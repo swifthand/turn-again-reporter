@@ -1,10 +1,11 @@
 # A Turn-like Minitest Reporter (Again)
 
-One of my favorite aspects of the now-abandoned [turn gem](https://github.com/turn-project/turn)'s was how the status banners for each test (i.e. PASS, FAIL, ERROR, SKIP) lined up nicely on the right side, providing a comfy, at-a-glance view.
+One of my favorite aspects of the now-abandoned [turn gem](https://github.com/turn-project/turn) was how the status banners for each test (i.e. PASS, FAIL, ERROR, SKIP) lined up nicely on the right side, providing a comfy, at-a-glance view.
 
-These days I'm using the [minitest-reporters](https://github.com/kern/minitest-reporters) gem everywhere, but I've felt a little picky about the SpecReporter's claims to be "Turn-like". Also, placing the status banners on the right side, after each test, has the undesirable effect of limiting the length of my test names.
+These days I'm using the [minitest-reporters](https://github.com/kern/minitest-reporters) gem everywhere, but I've felt a little picky about the SpecReporter's claims to be "Turn-like". In addition to the right-aligned status banners being a little unfamiliar, since they come after the test name, it has the undesirable effect of limiting the length of my test names.
 
 **Q: Do I really need tests with 60-character names?**
+
 *A: Yes, sometimes. And it's none of your business!*
 
 This might be better off included in the minitest-reporters gem itself, but it varies so minimally/cosmetically from its parent that I can't bring myself to bother the wonderful [Alex Kern](https://github.com/kern) about it with a pull request. It's really just an easy way for me to spread this code across all my projects without copy-pasting it. If someone else out there enjoys this formatting, I'm glad to hear it.
