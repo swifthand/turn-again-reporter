@@ -20,7 +20,7 @@ require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::TurnAgainReporter.new
 ```
 
-TurnAgainReporter's initializer will pass on all existing Minitest::Reporters::Base keyword argments, such as `color: true` but uses two of its own for some customization:
+TurnAgainReporter's initializer will pass on all existing Minitest::Reporters::Base keyword arguments, such as `color: true` but uses two of its own for some customization:
 
   1. The `indent` keyword can specify the indentation from the left of the console when running. The default is 4 to faithfully mimic turn itself.
   2. *Unlike turn*, the duration measurements in next to the test status do not include hours, because the vast majority of tests do not require a whole hour for a single test case. However, hours can be re-enabled by passing the `:hours` keyword as `true`.
@@ -57,6 +57,6 @@ $ bundle install
 
 ## Contributing
 
-Fork away, but I can't imaginee there's much to contribute.
+Fork away, but I can't imagine there's much to contribute.
 
 That said, I would be interested to see how one might test the output of a test library? Play with redirecting STDOUT and write a few test cases for Fixnum or something? I would normally shy away from releasing untested code, but *honestly?!* This gem is just two `sprintf` statements and a re-arrangement of `puts` statements.
