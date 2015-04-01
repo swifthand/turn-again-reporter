@@ -1,5 +1,10 @@
+require 'minitest'
+require 'minitest/reporters'
+
 module Minitest
   module Reporters
+    require 'turn_again_reporter/version'
+
     # Reporter whose output more closely mimics the format of the turn gem.
     # Specifically:
     # 1. The status banner and time on the left, which removes the need to
