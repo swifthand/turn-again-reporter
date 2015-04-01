@@ -3,7 +3,7 @@ require 'minitest/reporters'
 
 module Minitest
   module Reporters
-    require 'turn_again_reporter/version'
+    require 'minitest/reporters/turn_again_reporter/version'
 
     # Reporter whose output more closely mimics the format of the turn gem.
     # Specifically:
