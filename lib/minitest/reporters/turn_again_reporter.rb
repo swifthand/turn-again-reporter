@@ -27,13 +27,31 @@ module Minitest
       include ANSI::Code
       include RelativePosition
 
-      attr_reader :hours, :indent
+      attr_reader :hours, :indent,
+                  :pass_color, :fail_color, :error_color, :skip_color
 
       def initialize(options = {})
-        @hours  = !!options.fetch(:hours, false)
-        @indent =   options.fetch(:indent, 4)
+        options       = option_defaults.merge(options)
+        @hours        = !!options.fetch(:hours)
+        @indent       = options.fetch(:indent)
+        @pass_color   = options.fetch(:pass_color)
+        @fail_color   = options.fetch(:fail_color)
+        @error_color  = options.fetch(:error_color)
+        @skip_color   = options.fetch(:skip_color)
         super(options)
       end
+
+
+      def option_defaults
+        { hours:        false,
+          indent:       4,
+          pass_color:   :green,
+          fail_color:   :red,
+          error_color:  :yellow,
+          skip_color:   :cyan,
+        }
+      end
+
 
       def start
         super
@@ -41,15 +59,48 @@ module Minitest
         puts
       end
 
+
       def report
         super
+
+        passed = count - (failures + errors + skips)
+
         puts('Finished in %.5fs' % total_time)
-        print('%d tests, %d assertions, ' % [count, assertions])
-        color = failures.zero? && errors.zero? ? :green : :red
-        print(send(color) { '%d failures, %d errors, ' } % [failures, errors])
-        print(yellow { '%d skips' } % skips)
+        puts
+        print(bold { '%d tests' } % count)
+        print(', ')
+        print(send(report_passed_color)    { '%d passed' }   % passed)
+        print(', ')
+        print(send(report_failures_color)  { '%d failures' } % failures)
+        print(', ')
+        print(send(report_errors_color)    { '%d errors' }   % errors)
+        print(', ')
+        print(send(report_skips_color)     { '%d skips' }    % skips)
+        print(', ')
+        print('%d assertions' % assertions)
         puts
       end
+
+
+      def print_colored_status(test)
+        print_status = -> { pad_mark( result(test).to_s.upcase ) }
+        if test.passed?
+          print(send(pass_color,  &print_status))
+        elsif test.skipped?
+          print(send(skip_color,  &print_status))
+        elsif test.error?
+          print(send(error_color, &print_status))
+        else
+          print(send(fail_color,  &print_status))
+        end
+      end
+
+      ##
+      # To match the interface of printing of colors via methods with blocks.
+      def no_color(&block)
+        block.call
+      end
+
 
       def record(test)
         super
@@ -64,15 +115,55 @@ module Minitest
         end
       end
 
+      ##
+      # Divergence from Minitest::Reporters::SpecReporter is that here we are
+      # printing the exception name with padding, so that it doesn't break the
+      # visual flow/alignment of all the vertical, colored test result statuses.
+      def print_info(e, name=true)
+        print_with_info_padding("#{e.exception.class.to_s}: ") if name
+        e.message.each_line { |line| print_with_info_padding(line) }
+
+        # When e is a Minitest::UnexpectedError, the filtered backtrace is already part of the message printed out
+        # by the previous line. In that case, and that case only, skip the backtrace output.
+        unless e.is_a?(MiniTest::UnexpectedError)
+          trace = filter_backtrace(e.backtrace)
+          trace.each { |line| print_with_info_padding(line) }
+        end
+      end
+
+
 protected ######################################################################
+
+
+      def report_passed_color
+        failures.zero? && errors.zero? ? pass_color : :no_color
+      end
+
+
+      def report_failures_color
+        failures.zero? ? :no_color : fail_color
+      end
+
+
+      def report_errors_color
+        errors.zero? ? :no_color : error_color
+      end
+
+
+      def report_skips_color
+        skips.zero? ? :no_color : skip_color
+      end
+
 
       def before_suite(suite)
         puts suite
       end
 
+
       def after_suite(suite)
         puts
       end
+
 
       def format_time(t)
         if hours

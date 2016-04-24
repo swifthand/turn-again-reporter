@@ -21,10 +21,11 @@ require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::TurnAgainReporter.new
 ```
 
-TurnAgainReporter's initializer will pass on all existing Minitest::Reporters::Base keyword arguments, such as `color: true` but uses two of its own for some customization:
+TurnAgainReporter's initializer will pass on all existing Minitest::Reporters::BaseReporter keyword arguments, such as `color: true` but uses some of its own for some customization:
 
   1. The `indent` keyword can specify the indentation from the left of the console when running. The default is 4 to faithfully mimic turn itself.
   2. *Unlike turn*, the duration measurements in next to the test status do not include hours, because the vast majority of tests do not require a whole hour for a single test case. However, hours can be re-enabled by passing the `:hours` keyword as `true`.
+  3. The colors that correspond to the test status flags (`PASS`, `FAIL`, `ERROR`, `SKIP`) can be customized by passing in the symbol of an ansi primary color names for the options `pass_color`, `fail_color`, `error_color` and `skip_color`, respectively. Valid names for ANSI primary colors are `:black`, `:red`, `:green`, `:yellow`, `:blue`, `:magenta`, `:cyan`, and `:white`. Additionally `:no_color` can be specified if you want to turn off color only for a specific status.
 
 An example of these options:
 
@@ -32,14 +33,24 @@ An example of these options:
 
 Minitest::Reporters.use!(
   Minitest::Reporters::TurnAgainReporter.new(
-    color: true, hours: true, indent: 2
+    hours: true, indent: 2, skip_color: :yellow
   ))
 ```
 
 
 ## Demonstration tests
 
-Rake test tasks exist for demonstrating the output of this gem. The usual `rake test` task will simply run all of the demonstration files. Because this necessarily includes purposeful errors and failures, will fail. Please do not file any issues related to these intended failures. More granularly, there are tasks with the names `pass-format`, `fail-format`, `error-format` and `skip-format` which demonstrate their respective formatting.
+Rake test tasks exist for demonstrating the output of this gem. Current tasks are:
+
+- `rake pass-format`
+- `rake fail-format`
+- `rake error-format`
+- `rake skip-format`
+- `rake crazy-colors`
+- `rake indent-option`
+- `rake hours-option`
+
+The usual `rake test` task will simply run all of the demonstration files together. This is not particularly useful. Because this necessarily includes purposeful errors and failures, will fail. Please do not file any issues related to these intended failures. Furthermore, because individual demonstration tests set different configuration settings for the whole suite, subsequent runs may have different formatting depending on which demonstration gets run first (as its settings take precendent).
 
 
 ## Installation
