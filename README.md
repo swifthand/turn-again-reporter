@@ -10,6 +10,7 @@ These days I'm using the [minitest-reporters](https://github.com/kern/minitest-r
 
 This might be better off included in the minitest-reporters gem itself, but it varies so minimally/cosmetically from its parent that I can't bring myself to bother the wonderful [Alex Kern](https://github.com/kern) about it with a pull request. It's really just an easy way for me to spread this code across all my projects without copy-pasting it. If someone else out there enjoys this formatting, I'm glad to hear it.
 
+
 ## Usage and Features (so-called)
 
 In your `test_helper.rb` file, or equivalent where you `require 'minitest-reporters'`, just follow it up with:
@@ -35,6 +36,12 @@ Minitest::Reporters.use!(
   ))
 ```
 
+
+## Demonstration tests
+
+Rake test tasks exist for demonstrating the output of this gem. The usual `rake test` task will simply run all of the demonstration files. Because this necessarily includes purposeful errors and failures, will fail. Please do not file any issues related to these intended failures. More granularly, there are tasks with the names `pass-format`, `fail-format`, `error-format` and `skip-format` which demonstrate their respective formatting.
+
+
 ## Installation
 
 The usual gem installation applies:
@@ -54,6 +61,7 @@ and run
 ```bash
 $ bundle install
 ```
+
 
 ## Contributing
 
