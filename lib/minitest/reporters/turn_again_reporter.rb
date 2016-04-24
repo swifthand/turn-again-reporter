@@ -22,6 +22,7 @@ module Minitest
     # @see https://github.com/kern/minitest-reporters/blob/master/lib/minitest/reporters/spec_reporter.rb SpecReporter
     # @see https://github.com/TwP/turn turn
     class TurnAgainReporter < BaseReporter
+      require 'ansi'
       include ANSI::Code
       include RelativePosition
 
