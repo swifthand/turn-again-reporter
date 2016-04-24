@@ -1,5 +1,6 @@
 require 'minitest'
 require 'minitest/reporters'
+require 'minitest/reporters/base_reporter'
 
 module Minitest
   module Reporters
